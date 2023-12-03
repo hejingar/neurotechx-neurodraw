@@ -4,6 +4,7 @@ import random
 import tkinter as tk
 from tkinter import Button, Label, Entry
 from PIL import Image, ImageTk
+from plottin import compute_frequencies_percentage
 
 # load that sdxl-turbooo
 pipe = AutoPipelineForText2Image.from_pretrained("stabilityai/sdxl-turbo", torch_dtype=torch.float16, variant="fp16")
@@ -87,11 +88,11 @@ def display_image(window, img_path, img_label_var):
         img_label.pack()
         img_label_var.append(img_label)
 
-def generate_image(initial_prompt, img_label_var):
+def generate_image(initial_prompt, img_label_var, delta, theta, alpha, beta, gamma):
     """
     :param initial_prompt: User chosen
     """
-    prompt = generate_brain_wave_prompt(initial_prompt, 70, 10, 10, 5, 5)
+    prompt = generate_brain_wave_prompt(initial_prompt, delta, theta, alpha, beta, gamma)
     image = pipe(prompt=prompt, num_inference_steps=1, guidance_scale=0.0).images[0]
     img_path = "yoo.png"
     image.save(img_path)
@@ -100,14 +101,48 @@ def generate_image(initial_prompt, img_label_var):
 # Onclick handling
 def on_generate_button_click():
     prompt = prompt_entry.get()
-    generate_image(prompt, img_label_var)
+    path = data_entry.get()
+    data_list = compute_frequencies_percentage(path)
+    for d in data_list:
+        print(d)
+    delta = data_list[0]
+    theta = data_list[1]
+    alpha = data_list[2]
+    beta = data_list[3]
+    gamma = data_list[4]
+
+    # delta = delta_percent_entry.get()
+    # theta = theta_percent_entry.get()
+    # alpha = alpha_percent_entry.get()
+    # beta = beta_percent_entry.get()
+    # gamma = gamma_percent_entry.get()
+    generate_image(prompt, img_label_var, int(delta), int(theta), int(alpha), int(beta), int(gamma))
 
 window = tk.Tk()
 window.title("Brain Wave Image Generator")
 
 # Sweet user entry
+prompt_label = tk.Label(window, text="Enter your initial prompt")
+prompt_label.pack()
 prompt_entry = Entry(window)
 prompt_entry.pack()
+
+data_label = tk.Label(window, text="Enter the path to your EEG csv data")
+data_label.pack()
+data_entry = tk.Entry(window)
+data_entry.pack()
+
+# theta_percent_entry = tk.Entry(window)
+# theta_percent_entry.pack()
+
+# alpha_percent_entry = tk.Entry(window)
+# alpha_percent_entry.pack()
+
+# beta_percent_entry = tk.Entry(window)
+# beta_percent_entry.pack()
+
+# gamma_percent_entry = tk.Entry(window)
+# gamma_percent_entry.pack()
 
 #to keep a reference so we can remove it
 img_label_var = []
