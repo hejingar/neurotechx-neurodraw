@@ -10,6 +10,16 @@ Open Issue if you have some trouble running it.
 NB: For the first run, the install might be excessively long because of the stable diffusion model download (weights around 5gb). You also need at least 6gb of free RAM to use this script in the best condition, otherwise the memory swaps might make the generation a bit longer.
 Image generation takes around 2-3s on an entry level user GPU 
 
+Demonstration:
+   - Here is a picture when measuring activity with a stimuling soft music being played and concentrated on:
+![with calming music](https://github.com/hejingar/neurotechx-neurodraw/assets/67289429/32de3166-26ca-476b-9471-2c62bb35dfd1)
+
+   - Here is another one while listennig to the ambiant sound of the teams working during the Hackathon:
+![without music](https://github.com/hejingar/neurotechx-neurodraw/assets/67289429/c76509ac-1379-4d47-a20f-0ec3bf0aca97)
+
+   - Here is a last sample that has been taken with the Idun Device during a sleep recording (not done by us):
+     ![Screenshot 2023-12-03 132617](https://github.com/hejingar/neurotechx-neurodraw/assets/67289429/8f60dd98-cc28-4e8f-953c-73318b36e0b7)
+
 
 Documentation : 
 #### Introduction
